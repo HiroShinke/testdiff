@@ -21,6 +21,7 @@ Add this to pom.xml:
   <groupId>com.github.hiroshinke.testfilediff</groupId>
   <artifactId>testfilediff</artifactId>
   <version>1.0</version>
+  <scope>test</scope>
 </dependency>
 
 ....
