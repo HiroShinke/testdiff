@@ -36,6 +36,18 @@ Add this to pom.xml:
 
 ```
 
+And this to ~/.m2/settings.xml:
+
+```xml
+
+<server>
+  <id>github</id>
+  <username>{{Your Github User name}}</username>
+  <password>{{GitNub Token}}</password>
+</server>
+
+```
+
 ## Examples
 
 
