@@ -8,11 +8,25 @@ A JUNIT test utilitiy for file difference check.
 
 ## Usage
 
-assertFileNoDiff()
+Use these methods in your JUNIT test cases.
 
+assertFileNoDiff()
 assertFileNoDiffSorted()
 
+Add this to pom.xml:
+
+```xml
+
+<dependency>
+  <groupId>com.github.hiroshinke.testfilediff</groupId>
+  <artifactId>testfilediff</artifactId>
+  <version>1.0</version>
+</dependency>
+
+```
+
 ## Examples
+
 
 ```java
 
@@ -43,8 +57,8 @@ assertFileNoDiffSorted()
 	TestFileDiff.assertFileNoDiff(file1.toPath(),file2.toPath());
     }
 
-
 ```
+
 
 ## Contribution
 
