@@ -10,8 +10,8 @@ A JUNIT test utilitiy for file difference check.
 
 Use these methods in your JUNIT test cases.
 
-assertFileNoDiff()
-assertFileNoDiffSorted()
+- assertFileNoDiff()
+- assertFileNoDiffSorted()
 
 Add this to pom.xml:
 
