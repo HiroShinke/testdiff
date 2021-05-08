@@ -23,6 +23,17 @@ Add this to pom.xml:
   <version>1.0</version>
 </dependency>
 
+....
+
+<repositories>
+  <repository>
+    <id>github</id>
+    <name>TestFileDiff github repository</name>
+    <url>https://maven.pkg.github.com/HiroShinke/testfilediff</url>
+  </repository>
+</repositories>
+
+
 ```
 
 ## Examples
