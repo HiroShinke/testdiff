@@ -31,7 +31,7 @@ public class TestFileDiff {
 	assertListNoDiff(p1.toString(),p2.toString(),oldLines,newLines);
     }
 
-    public static void assertFileDiffSorted(Path p1,Path p2) throws Exception {
+    public static void assertFileNoDiffSorted(Path p1,Path p2) throws Exception {
 
 	List<String> oldLines = Files.readAllLines(p1,Charset.defaultCharset());
 	List<String> newLines = Files.readAllLines(p2,Charset.defaultCharset());
