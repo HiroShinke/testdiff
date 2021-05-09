@@ -1,7 +1,6 @@
 
 package com.github.hiroshinke.testfilediff;
 
-import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
