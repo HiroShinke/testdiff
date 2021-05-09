@@ -12,6 +12,7 @@ Use these methods in your JUNIT test cases.
 
 - assertFileNoDiff()
 - assertFileNoDiffSorted()
+- assertListNoDiff()
 
 Add this to pom.xml:
 
