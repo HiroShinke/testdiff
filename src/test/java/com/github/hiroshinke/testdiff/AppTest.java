@@ -1,5 +1,5 @@
 
-package com.github.hiroshinke.testfilediff;
+package com.github.hiroshinke.testdiff;
 
 import static org.junit.Assert.*;
 
@@ -57,7 +57,7 @@ public class AppTest
 				    "ccccc\n",
 				    (String)null);
 
-	TestFileDiff.assertFileNoDiff(file1.toPath(),file2.toPath());
+	TestDiff.assertFileNoDiff(file1.toPath(),file2.toPath());
     }
 
 
@@ -69,7 +69,7 @@ public class AppTest
 	List<String> a1 = Arrays.asList( new String[]{ "a", "b", "c", "d", "e" } );
 	List<String> a2 = Arrays.asList( new String[]{ "a", "b", "c", "d", "e" } );
 
-	TestFileDiff.assertListNoDiff("label1",
+	TestDiff.assertListNoDiff("label1",
 				      "label1",
 				      a1,
 				      a2,
@@ -90,7 +90,7 @@ public class AppTest
 	
 	try {
 
-	    TestFileDiff.assertListNoDiff("label1",
+	    TestDiff.assertListNoDiff("label1",
 					  "label2",
 					  a1,
 					  a2,
@@ -124,7 +124,7 @@ public class AppTest
 	List<String> a1 = Arrays.asList( "a", "b", "c" );
 	List<String> a2 = Arrays.asList( "A", "B", "C" );
 
-	TestFileDiff.assertListNoDiff("label1",
+	TestDiff.assertListNoDiff("label1",
 				      "label2",
 				      a1,
 				      a2,
@@ -141,7 +141,7 @@ public class AppTest
 	List<Integer> a1 = Arrays.asList( 1, 2, 3 );
 	List<Integer> a2 = Arrays.asList( 1, 2, 3 );
 
-	TestFileDiff.assertListNoDiff("label1",
+	TestDiff.assertListNoDiff("label1",
 				      "label2",
 				      a1,
 				      a2,
@@ -162,7 +162,7 @@ public class AppTest
 
 	try {
 	
-	    TestFileDiff.assertListNoDiff("label1",
+	    TestDiff.assertListNoDiff("label1",
 					  "label2",
 					  a1,
 					  a2,
@@ -196,7 +196,7 @@ public class AppTest
 	
 	try {
 
-	    TestFileDiff.assertListNoDiff("label1",
+	    TestDiff.assertListNoDiff("label1",
 					  "label2",
 					  a1,
 					  a2,

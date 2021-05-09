@@ -1,7 +1,7 @@
 
 
 
-package com.github.hiroshinke.testfilediff;
+package com.github.hiroshinke.testdiff;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +27,7 @@ import java.io.Writer;
 import java.io.IOException;
 import static java.util.Comparator.*;
 
-public class TestFileDiff {
+public class TestDiff {
 
 
     public static void assertFileNoDiff(Path p1,Path p2) throws Exception {
