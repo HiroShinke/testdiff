@@ -7,14 +7,17 @@ import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.function.BiPredicate;
 
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.charset.Charset;
 
-import difflib.Delta;
-import difflib.DiffUtils;
-import difflib.Patch;
+import com.github.difflib.DiffUtils;
+import com.github.difflib.UnifiedDiffUtils;
+import com.github.difflib.patch.Patch;
+import com.github.difflib.patch.AbstractDelta;
+import com.github.difflib.algorithm.myers.MyersDiff;
 
 import org.apache.commons.io.FileUtils;
 
@@ -46,12 +49,12 @@ public class TestFileDiff {
 					List<String> oldLines,List<String> newLines)
 	throws Exception {
 	
-	Patch patch = DiffUtils.diff(oldLines, newLines);
-	List<String>  diff = DiffUtils.generateUnifiedDiff(label1,
-							   label2,
-							   oldLines,
-							   patch,
-							   20);
+	Patch<String> patch = DiffUtils.diff(oldLines, newLines);
+	List<String>  diff = UnifiedDiffUtils.generateUnifiedDiff(label1,
+								  label2,
+								  oldLines,
+								  patch,
+								  0);
 	StringWriter buff = new StringWriter();
 
 	for(String l: diff){
@@ -65,5 +68,24 @@ public class TestFileDiff {
 		   patch.getDeltas().isEmpty());
     }
 
-    
+
+    public static <T> void printDiff(List<T> oldLines,
+				     List<T> newLines,
+				     BiPredicate<T,T> equalizer){
+	Patch<T> patch;
+	
+	if( equalizer != null ){
+	    patch = DiffUtils.diff(oldLines, newLines, equalizer);
+	} else {
+	    patch = DiffUtils.diff(oldLines, newLines);
+	}
+	
+	System.out.println(oldLines);	
+	System.out.println(patch);
+
+	for (AbstractDelta<T> delta : patch.getDeltas()) {
+	    System.out.println(delta);
+	}
+    }
+	
 }
