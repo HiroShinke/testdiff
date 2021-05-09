@@ -1,6 +1,6 @@
-# TestFileDiff
+# TestDiff
 
-A JUNIT test utilitiy for file difference check.
+A JUnit test utilitiy to test differences of file contents, or object lists
 
 ## Description
 
@@ -18,8 +18,8 @@ Add this to pom.xml:
 ```xml
 
 <dependency>
-  <groupId>com.github.hiroshinke.testfilediff</groupId>
-  <artifactId>testfilediff</artifactId>
+  <groupId>com.github.hiroshinke.testdiff</groupId>
+  <artifactId>testdiff</artifactId>
   <version>1.0</version>
   <scope>test</scope>
 </dependency>
@@ -29,8 +29,8 @@ Add this to pom.xml:
 <repositories>
   <repository>
     <id>github</id>
-    <name>TestFileDiff github repository</name>
-    <url>https://maven.pkg.github.com/HiroShinke/testfilediff</url>
+    <name>TestDiff github repository</name>
+    <url>https://maven.pkg.github.com/HiroShinke/testdiff</url>
   </repository>
 </repositories>
 
@@ -78,7 +78,7 @@ And this to ~/.m2/settings.xml:
 				    "ccccc\n",
 				    (String)null);
 
-	TestFileDiff.assertFileNoDiff(file1.toPath(),file2.toPath());
+	TestDiff.assertFileNoDiff(file1.toPath(),file2.toPath());
     }
 
 ```
