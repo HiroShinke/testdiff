@@ -111,42 +111,26 @@ public class TestDiff {
 	
 	for (AbstractDelta<T> delta : patch.getDeltas()) {
 	    
-	    if( delta.getType() == DeltaType.DELETE ){
+	    switch(delta.getType()){
 
+	    case DELETE:
 		diffExist = true;
-		helperWriteObjs(buff,
-				"-",
-				delta.getSource().getLines(),
-				stringifier);
-		
-	    } else if( delta.getType() == DeltaType.INSERT ){
-
+		helperWriteObjs(buff,"-",delta.getSource().getLines(),stringifier);
+		break;
+	    case INSERT:
 		diffExist = true;
-		helperWriteObjs(buff,
-				"+",
-				delta.getTarget().getLines(),
-				stringifier);
-		
-	    } else if( delta.getType() == DeltaType.CHANGE ){
-
+		helperWriteObjs(buff,"+",delta.getTarget().getLines(),stringifier);
+		break;
+	    case CHANGE:
 		diffExist = true;
-		helperWriteObjs(buff,
-				"-",
-				delta.getSource().getLines(),
-				stringifier);
-		helperWriteObjs(buff,
-				"+",
-				delta.getTarget().getLines(),
-				stringifier);
-		
-	    } else if( delta.getType() == DeltaType.EQUAL ){
-		
-		helperWriteObjs(buff,
-				" ",
-				delta.getSource().getLines(),
-				stringifier);
-	    } else {
-		throw new RuntimeException("shuould not come here!!");
+		helperWriteObjs(buff,"-",delta.getSource().getLines(),stringifier);
+		helperWriteObjs(buff,"+",delta.getTarget().getLines(),stringifier);
+		break;
+	    case EQUAL:
+		helperWriteObjs(buff," ",delta.getSource().getLines(),stringifier);
+		break;
+	    default:
+		throw new IllegalArgumentException("shuould not come here!!");
 	    }
 	}
 	
