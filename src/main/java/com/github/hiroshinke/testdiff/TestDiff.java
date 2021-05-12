@@ -16,6 +16,7 @@ import java.nio.charset.Charset;
 import com.github.difflib.DiffUtils;
 import com.github.difflib.UnifiedDiffUtils;
 import com.github.difflib.patch.Patch;
+import com.github.difflib.patch.Chunk;
 import com.github.difflib.patch.AbstractDelta;
 import com.github.difflib.patch.DeltaType;
 import com.github.difflib.algorithm.myers.MyersDiff;
@@ -72,21 +73,38 @@ public class TestDiff {
     }
 
     public static <T> void helperWriteObjs(Writer writer,
+					   int sourcePos,
+					   int targetPos,
 					   String prefix,
 					   List<T> lines,
 					   Function<T,String> stringifier)
 	throws IOException {
 
+	int pos1 = sourcePos;
+	int pos2 = targetPos;
+	
 	if( stringifier == null ){
 	    stringifier = Object::toString;
 	}
 	
 	for(T l: lines){
-	    writer.write(prefix);	    
+	    if( 0 <= pos1 ){
+		writer.write(Integer.toString(pos1));
+		pos1++;
+	    } 
+	    writer.write("\t");	    
+	    if( 0 <= pos2 ){
+		writer.write(Integer.toString(pos2));
+		pos2++;
+	    } 
+	    writer.write("\t");	    
+	    writer.write(prefix);
+	    writer.write("\t");	    	    
 	    writer.write(stringifier.apply(l));
 	    writer.write("\n");
 	}
     }
+
 
     public static <T> void assertListNoDiff(String label1,
 					    String label2,
@@ -111,23 +129,52 @@ public class TestDiff {
 	
 	for (AbstractDelta<T> delta : patch.getDeltas()) {
 	    
+	    Chunk<T> source = delta.getSource();
+	    Chunk<T> target = delta.getTarget();
+
 	    switch(delta.getType()){
 
 	    case DELETE:
 		diffExist = true;
-		helperWriteObjs(buff,"-",delta.getSource().getLines(),stringifier);
+		helperWriteObjs(buff,
+				source.getPosition(),
+				-1,
+				"-",
+				source.getLines(),
+				stringifier);
 		break;
 	    case INSERT:
 		diffExist = true;
-		helperWriteObjs(buff,"+",delta.getTarget().getLines(),stringifier);
+		helperWriteObjs(buff,
+				-1,
+				target.getPosition(),
+				"+",
+				target.getLines(),
+				stringifier);
 		break;
 	    case CHANGE:
 		diffExist = true;
-		helperWriteObjs(buff,"-",delta.getSource().getLines(),stringifier);
-		helperWriteObjs(buff,"+",delta.getTarget().getLines(),stringifier);
+		helperWriteObjs(buff,
+				source.getPosition(),
+				-1,
+				"-",
+				source.getLines(),
+				stringifier);
+
+		helperWriteObjs(buff,
+				-1,
+				target.getPosition(),
+				"+",
+				target.getLines(),
+				stringifier);
 		break;
 	    case EQUAL:
-		helperWriteObjs(buff," ",delta.getSource().getLines(),stringifier);
+		helperWriteObjs(buff,
+				source.getPosition(),
+				target.getPosition(),
+				" ",
+				source.getLines(),
+				stringifier);
 		break;
 	    default:
 		throw new IllegalArgumentException("shuould not come here!!");
@@ -176,7 +223,9 @@ public class TestDiff {
 	for (AbstractDelta<T> delta : patch.getDeltas()) {
 	    System.out.println(delta);
 	    System.out.println("@@@@@ source" + delta.getSource());
+	    System.out.println("@@@@@ source" + delta.getSource().getChangePosition());
 	    System.out.println("@@@@@ source" + delta.getTarget());
+	    System.out.println("@@@@@ source" + delta.getTarget().getChangePosition());
 	}
     }
 
